@@ -480,3 +480,46 @@ class Speaker():
         if volume := response.get_key('volume'):
             return translate.decode_volume(int(volume))
         raise ApiCallError
+    
+    # ******************************************************************
+    # Group
+    # ******************************************************************
+    @is_it_supported
+    async def group_with(self, speakers: list[Speaker], group_name: str) -> ApiResponse:
+        """ Group speaker. The first element is the master speaker.
+
+        Arguments:
+            speakers:
+                All speakers in the group.
+            group_name:
+                Group name.
+
+        Returns:
+            Group
+        """
+        if speakers.count < 1:
+            raise ApiCallError
+
+        master = speakers.pop(0)
+        slaves = list[dict[str, str]]
+        for speaker in speakers:
+            slave = {"ip": speaker.ip, "mac": speaker.attribute.mac}
+            slaves.append(slave)
+
+
+        return await self.client.request(api_call.set_multispk_group_mainspk(group_name,
+                                                                             speakers.count,
+                                                                             master.attribute.mac,
+                                                                             master.attribute.name,
+                                                                             slaves))
+    
+    @is_it_supported
+    async def group_with(self) -> ApiResponse:
+        """ Ungroup speaker.
+
+        Arguments:
+            
+        Returns:
+            Ungroup
+        """
+        return await self.client.request(api_call.set_ungroup())
