@@ -514,7 +514,7 @@ class Speaker():
                                                                              slaves))
     
     @is_it_supported
-    async def group_with(self) -> ApiResponse:
+    async def ungroup(self) -> ApiResponse:
         """ Ungroup speaker.
 
         Arguments:
