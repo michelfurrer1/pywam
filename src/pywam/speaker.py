@@ -484,7 +484,6 @@ class Speaker():
     # ******************************************************************
     # Group
     # ******************************************************************
-    @is_it_supported
     async def group_with(self, speakers: list[Speaker], group_name: str) -> ApiResponse:
         """ Group speaker. The first element is the master speaker.
 
@@ -513,7 +512,6 @@ class Speaker():
                                                                              master.attribute.name,
                                                                              slaves))
     
-    @is_it_supported
     async def ungroup(self) -> ApiResponse:
         """ Ungroup speaker.
 
