@@ -496,7 +496,7 @@ class Speaker():
         Returns:
             Group
         """
-        if speakers.count < 1:
+        if len(speakers) < 1:
             raise ApiCallError
 
         master = speakers.pop(0)
