@@ -496,19 +496,20 @@ class Speaker():
         Returns:
             Group
         """
-        if len(speakers) < 1:
+        size = len(speakers)
+        if size < 1:
             raise ApiCallError
 
         master = speakers.pop(0)
         slaves = []
         for speaker in speakers:
-            slave = {"ip": speaker.ip,
-                     "mac": speaker.attribute.mac}
+            slave = {'ip': speaker.ip,
+                     'mac': speaker.attribute.mac}
             slaves.append(slave)
 
 
         return await self.client.request(api_call.set_multispk_group_mainspk(group_name,
-                                                                             speakers.count,
+                                                                             size,
                                                                              master.attribute.mac,
                                                                              master.attribute.name,
                                                                              slaves))
