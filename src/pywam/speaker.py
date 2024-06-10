@@ -500,9 +500,10 @@ class Speaker():
             raise ApiCallError
 
         master = speakers.pop(0)
-        slaves = list[dict[str, str]]
+        slaves = []
         for speaker in speakers:
-            slave = {"ip": speaker.ip, "mac": speaker.attribute.mac}
+            slave = {"ip": speaker.ip,
+                     "mac": speaker.attribute.mac}
             slaves.append(slave)
 
 
